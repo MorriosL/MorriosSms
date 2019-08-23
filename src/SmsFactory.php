@@ -10,6 +10,7 @@ use Morrios\Sms\Exception\ClientException;
  * Class SmsFactory
  *
  * @method static \Morrios\Sms\Channel\AlibabaCloud\Application    AlibabaCloud(array $config)
+ * @method static \Morrios\Sms\Channel\TencentCloud\Application    TencentCloud(array $config)
  */
 class SmsFactory
 {

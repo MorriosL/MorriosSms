@@ -12,6 +12,7 @@
   "require": {
     "php": ">=7.0",
     "alibabacloud/client": "^1.5",
+    "qcloudsms/qcloudsms_php": "0.1.*",
     "ext-json": "*"
   },
   "autoload": {

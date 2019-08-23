@@ -17,7 +17,7 @@ $ composer require morrios/sms
 
 ## 使用方法
 
-- 目前支持服务商：阿里云
+- 目前支持服务商：阿里云、腾讯云
 ```php
 use Morrios\Sms\SmsFactory;
 
@@ -26,17 +26,20 @@ use Morrios\Sms\SmsFactory;
 // sms配置
 $config = [
     // 公共配置
-    'signName'     => '测试签名',                        // 短信签名，阿里云后台获取
+    'signName'     => '测试签名',    // 短信签名，短信服务商后台配置获取
 
-    // Alibaba Cloud
-    'accessKeyId'  => 'XXX',        // 阿里云后台获取
-    'accessSecret' => 'XXX',        // 阿里云后台获取
+    // 动态配置
+    'accessKeyId'  => 'XXX',        // 阿里云：accessKeyId、腾讯云：appid
+    'accessSecret' => 'XXX',        // 阿里云：accessSecret、腾讯云：appkey
 ];
 
 try {
 
     // 初始化短信应用 <阿里云>
     $app = SmsFactory::AlibabaCloud($config);
+    
+    // 初始化短信应用 <腾讯云>
+    $app = SmsFactory::TencentCloud($config);
 
     // 获取随机数字验证码
     $code = $app->generateRandomString();

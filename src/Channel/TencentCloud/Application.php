@@ -15,7 +15,8 @@ class Application extends BaseApplication
     use Helpers;
 
     /**
-     * loadService
+     * Load service.
+     *
      * @return mixed|void
      */
     public function loadService()
@@ -35,18 +36,18 @@ class Application extends BaseApplication
     public function send(string $phone, string $templateCode, array $templateParam = [])
     {
         try {
-            // validate params
+            // Validate params
             $this->_validate([
                 'phone'         => 'required|string|phone',
                 'templateCode'  => 'required|string',
                 'templateParam' => 'required',
             ], func_get_args());
 
-            // send action
+            // Send action
             $this->service = new SmsSingleSender($this->config['accessKeyId'], $this->config['accessSecret']);
             $result        = $this->service->sendWithParam('86', $phone, $templateCode, $templateParam, $this->config['signName']);
 
-            // error handle
+            // Error handle
             if ($result['result'] != 0) throw new ClientException($result['errmsg'], 500);
 
             return json_decode($result, true);
@@ -67,18 +68,18 @@ class Application extends BaseApplication
     public function multipleSend(array $phones, string $templateCode, array $templateParam = [])
     {
         try {
-            // validate params
+            // Validate params
             $this->_validate([
                 'phones'        => 'required|array|max:100|phones',
                 'templateCode'  => 'required|string',
                 'templateParam' => 'required',
             ], func_get_args());
 
-            // send action
+            // Send action
             $this->service = new SmsMultiSender($this->config['accessKeyId'], $this->config['accessSecret']);
             $result        = $this->service->sendWithParam('86', $phones, $templateCode, $templateParam, $this->config['signName']);
 
-            // error handle
+            // Error handle
             if ($result['result'] != 0) throw new ClientException($result['errmsg'], 500);
 
             return json_decode($result, true);

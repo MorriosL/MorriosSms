@@ -9,7 +9,8 @@ use Morrios\Sms\Exception\ClientException;
 trait Helpers
 {
     /**
-     * validate params
+     * Validate params.
+     *
      * @param array $needKeys
      * @param array $params
      * @throws ClientException

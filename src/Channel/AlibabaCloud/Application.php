@@ -16,7 +16,8 @@ class Application extends BaseApplication
     use Helpers;
 
     /**
-     * loadService
+     * Load service.
+     *
      * @return mixed|void
      * @throws ClientException
      */
@@ -41,7 +42,7 @@ class Application extends BaseApplication
      */
     public function send(string $phone, string $templateCode, array $templateParam = [])
     {
-        // validate params
+        // Validate params
         $this->_validate([
             'phone'         => 'required|string|phone',
             'templateCode'  => 'required|string',
@@ -62,14 +63,14 @@ class Application extends BaseApplication
      */
     public function multipleSend(array $phones, string $templateCode, array $templateParam = [])
     {
-        // validate params
+        // Validate params
         $this->_validate([
             'phones'        => 'required|array|max:100|phones',
             'templateCode'  => 'required|string',
             'templateParam' => 'required',
         ], func_get_args());
 
-        // transfer phone to string
+        // Transfer phone to string
         $phones = implode(',', $phones);
 
         return $this->_sendAction($phones, $templateCode, $templateParam);

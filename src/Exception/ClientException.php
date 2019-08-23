@@ -14,6 +14,7 @@ class ClientException extends MorriosException
 {
     /**
      * ClientException constructor.
+     *
      * @param string         $message
      * @param int            $code
      * @param Throwable|null $previous

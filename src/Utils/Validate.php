@@ -8,6 +8,7 @@ class Validate
 {
     /**
      * required
+     *
      * @param $value
      * @return bool
      */
@@ -18,6 +19,7 @@ class Validate
 
     /**
      * string
+     *
      * @param $value
      * @return bool
      */
@@ -28,6 +30,7 @@ class Validate
 
     /**
      * array
+     *
      * @param $value
      * @return bool
      */
@@ -38,6 +41,7 @@ class Validate
 
     /**
      * phone
+     *
      * @param $value
      * @return bool
      */
@@ -48,6 +52,7 @@ class Validate
 
     /**
      * phones
+     *
      * @param $value
      * @return bool
      */
@@ -62,6 +67,7 @@ class Validate
 
     /**
      * max
+     *
      * @param $value
      * @param $length
      * @return bool
@@ -77,6 +83,7 @@ class Validate
 
     /**
      * max
+     *
      * @param $value
      * @param $length
      * @return bool
@@ -92,6 +99,7 @@ class Validate
 
     /**
      * config
+     *
      * @param $config
      * @return bool
      */

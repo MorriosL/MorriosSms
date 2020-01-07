@@ -102,7 +102,7 @@ class Application extends BaseApplication
                         'PhoneNumbers'  => $phones,
                         'SignName'      => $this->config['signName'],
                         'TemplateCode'  => $templateCode,
-                        'TemplateParam' => json_encode($templateParam),
+                        'TemplateParam' => json_encode((object)$templateParam),
                     ],
                 ])
                 ->request();

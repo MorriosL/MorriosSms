@@ -4,84 +4,83 @@
 namespace Morrios\Sms\Channel;
 
 
-use Morrios\Sms\Utils\Helpers;
+use Morrios\Base\Exception\ServerException;
+use Morrios\Sms\Param\ConfigParam;
+use Morrios\Sms\Param\MultipleSendParam;
+use Morrios\Sms\Param\SendResultParam;
+use Morrios\Sms\Param\SingleSendParam;
 
 /**
  * Class BaseApplication
+ *
  * @package Morrios\Sms\Channels
  */
 abstract class BaseApplication
 {
-    use Helpers;
-
     /**
-     * @var array
+     * @var ConfigParam
      */
-    protected $config = [];
+    protected $config;
 
     /**
-     * @var
+     * @var mixed
      */
     protected $service;
 
     /**
-     * @var string
-     */
-    protected $logType = 'file';
-
-    /**
      * BaseApplication constructor.
      *
-     * @param array $config
-     * @throws \Morrios\Sms\Exception\ClientException
+     * @param ConfigParam $config
+     * @throws ServerException
      */
-    public function __construct(array $config = [])
+    public function __construct(ConfigParam $config)
     {
-        // Validate config
-        $this->_validate([
-            'config' => 'required|config'
-        ], [$config]);
-
-        // Inject config
         $this->config = $config;
 
-        // Load service
         $this->loadService();
     }
 
     /**
      * Load service.
      *
-     * @return mixed
+     * @return void
+     * @throws ServerException
      */
     abstract public function loadService();
 
     /**
      * Send single SMS to achieve.
      *
-     * @param string $phone
-     * @param string $templateCode
-     * @param array  $templateParam
-     * @return mixed
+     * @param SingleSendParam $sendSmsParams
+     * @return SendResultParam
+     * @throws ServerException
      */
-    abstract public function send(string $phone, string $templateCode, array $templateParam = []);
+    abstract public function send(SingleSendParam $sendSmsParams);
 
     /**
      * Send multiple SMS to achieve.
      *
-     * @param array  $phones
-     * @param string $templateCode
-     * @param array  $templateParam
-     * @return mixed
+     * @param MultipleSendParam $multipleSendParam
+     * @return SendResultParam
+     * @throws ServerException
      */
-    abstract public function multipleSend(array $phones, string $templateCode, array $templateParam = []);
+    abstract public function multipleSend(MultipleSendParam $multipleSendParam);
 
     /**
-     * Make random string.
+     * Transform response.
+     *
+     * @param array $response
+     * @return SendResultParam
+     */
+    abstract protected function transformResponse(array $response);
+
+    /**
+     * Make random number.
+     *
      * @param int $length
      * @return int
      */
-    public function generateRandomString(int $length = 6)
+    public function generateRandomNumber(int $length = 6)
     {
         return rand(pow(10, $length - 1), (pow(10, $length) - 1));
     }

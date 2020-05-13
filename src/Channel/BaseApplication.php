@@ -30,14 +30,26 @@ abstract class BaseApplication
     /**
      * BaseApplication constructor.
      *
-     * @param ConfigParam $config
+     * @param ConfigParam $configParam
      * @throws ServerException
      */
-    public function __construct(ConfigParam $config)
+    public function __construct(ConfigParam $configParam)
     {
-        $this->config = $config;
+        $this->config = $configParam;
 
         $this->loadService();
+    }
+
+    /**
+     * Update config.
+     *
+     * @param ConfigParam $configParam
+     */
+    public function updateConfig(ConfigParam $configParam)
+    {
+        foreach ($configParam->toArray() as $key => $value) {
+            $configParam->$key && $this->config->$key = $value;
+        }
     }
 
     /**

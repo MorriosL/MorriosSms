@@ -12,6 +12,7 @@
 - [使用方法](#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95)
   * [说明](#%e8%af%b4%e6%98%8e)
   * [实例化短信实例](#%e5%ae%9e%e4%be%8b%e5%8c%96%e7%9f%ad%e4%bf%a1%e5%ae%9e%e4%be%8b)
+  * [更新短信实例配置](#%e6%9b%b4%e6%96%b0%e7%9f%ad%e4%bf%a1%e5%ae%9e%e4%be%8b%e9%85%8d%e7%bd%ae)
   * [发送短信](#%e5%8f%91%e9%80%81%e7%9f%ad%e4%bf%a1)
 - [参数类说明](#%e5%8f%82%e6%95%b0%e7%b1%bb%e8%af%b4%e6%98%8e)
   * [配置参数类（ConfigParam）](#%e9%85%8d%e7%bd%ae%e5%8f%82%e6%95%b0%e7%b1%bb)
@@ -59,7 +60,7 @@ use Morrios\Sms\SmsFactory;
    
 try {
 
-    // 根据支付渠道需要实例化不同的支付配置参数类
+    // 实例化配置参数类
     $config = new ConfigParam([
         // 公共配置
         'signName'     => '测试签名',    // 短信签名，短信服务商后台配置获取
@@ -84,6 +85,27 @@ try {
     // ...
 
 }
+```
+
+### 更新短信实例配置
+
+- 配置参数类`ConfigParam`详见 [说明](#%e9%85%8d%e7%bd%ae%e5%8f%82%e6%95%b0%e7%b1%bb)
+
+```php
+use Morrios\Sms\Param\ConfigParam;
+
+// 实例化配置参数类，按需传入需要更新的字段
+$config = new ConfigParam([
+    // 公共配置
+    'signName'     => '测试签名',    // 短信签名，短信服务商后台配置获取
+    
+    // 动态配置
+    'accessKeyId'  => 'XXX',        // 阿里云：accessKeyId、腾讯云：appid
+    'accessSecret' => 'XXX',        // 阿里云：accessSecret、腾讯云：appkey
+]);
+
+// 支持更新实例中的配置 例：动态更新短信签名等场景
+$instance->updateConfig($config);
 ```
 
 ### 发送短信

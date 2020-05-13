@@ -46,7 +46,7 @@ abstract class BaseApplication
      * @return void
      * @throws ServerException
      */
-    abstract public function loadService();
+    abstract protected function loadService();
 
     /**
      * Send single SMS to achieve.

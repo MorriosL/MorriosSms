@@ -27,7 +27,7 @@ class TencentCloudApplication extends BaseApplication
     /**
      * @inheritDoc
      */
-    public function loadService()
+    protected function loadService()
     {
 
     }

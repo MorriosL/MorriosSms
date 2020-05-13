@@ -26,7 +26,7 @@ class AlibabaCloudApplication extends BaseApplication
     /**
      * @inheritDoc
      */
-    public function loadService()
+    protected function loadService()
     {
         try {
             AlibabaCloud::accessKeyClient($this->config->accessKeyId, $this->config->accessSecret)

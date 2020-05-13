@@ -19,7 +19,44 @@ use Morrios\Base\Param\MorriosParam;
 class SendResultParam extends MorriosParam
 {
     /**
+     * 请求ID
+     *
      * @var string
      */
     public $requestId;
+
+    /**
+     * 发送回执ID
+     *
+     * @var string
+     */
+    public $bizId;
+
+    /**
+     * 请求状态码
+     *
+     * @var string
+     */
+    public $code;
+
+    /**
+     * 状态码的描述
+     *
+     * @var string
+     */
+    public $message;
+
+    /**
+     * 发送成功列表 - 腾讯云响应
+     *
+     * @var array
+     */
+    public $successList = [];
+
+    /**
+     * 发送失败列表 - 腾讯云响应
+     *
+     * @var array
+     */
+    public $failedList = [];
 }

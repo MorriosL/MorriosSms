@@ -83,6 +83,7 @@ abstract class BaseApplication
      *
      * @param array $response
      * @return SendResultParam
+     * @throws ServerException
      */
     abstract protected function transformResponse(array $response);
 

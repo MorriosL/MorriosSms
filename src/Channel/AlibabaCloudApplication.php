@@ -51,6 +51,8 @@ class AlibabaCloudApplication extends BaseApplication
      */
     public function multipleSend(MultipleSendParam $multipleSendParam)
     {
+        if (count($multipleSendParam->phones) > 1000) throw new ServerException('批量发送单次不能超过1000个手机号');
+
         $phones = implode(',', $multipleSendParam->phones);
 
         return $this->_sendAction($phones, $multipleSendParam->templateCode, $multipleSendParam->templateParam);
@@ -61,7 +63,12 @@ class AlibabaCloudApplication extends BaseApplication
      */
     protected function transformResponse(array $response)
     {
+        if ($response['Code'] != 'OK') throw new ServerException($response['Code'] . ' - ' . $response['Message']);
+
         return new SendResultParam([
+            'bizId'     => $response['BizId'],
+            'code'      => $response['Code'],
+            'message'   => $response['Message'],
             'requestId' => $response['RequestId'],
         ]);
     }

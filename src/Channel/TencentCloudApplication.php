@@ -57,6 +57,8 @@ class TencentCloudApplication extends BaseApplication
      */
     public function multipleSend(MultipleSendParam $multipleSendParam)
     {
+        if (count($multipleSendParam->phones) > 200) throw new ServerException('批量发送单次不能超过200个手机号');
+
         try {
             $this->service = new SmsMultiSender($this->config->accessKeyId, $this->config->accessSecret);
 
@@ -78,8 +80,49 @@ class TencentCloudApplication extends BaseApplication
      */
     protected function transformResponse(array $response)
     {
-        return new SendResultParam([
-            'requestId' => $response['RequestId'],
-        ]);
+        // 定义发送结果清单
+        $successList = [];
+        $failedList  = [];
+
+        // 根据发送结果填充清单
+        foreach ($response['SendStatusSet'] as $sendStatus) {
+            if ($sendStatus['Code'] == 'Ok') {
+                array_push($successList, $sendStatus);
+            } else {
+                array_push($failedList, $sendStatus);
+            }
+        }
+
+        // 统计结果
+        $sendCount   = count($response['SendStatusSet']);
+        $failedCount = count($failedList);
+
+        // 全量发送失败处理
+        if ($failedCount == $sendCount) {
+            $sendStatus = current($response['SendStatusSet']);
+
+            $errorMessage = $sendStatus['Code'] . ' - ' . $sendStatus['Message'];
+            $failedCount > 1 && '批量发送失败，原因：' . $errorMessage . '等';
+
+            throw new ServerException($errorMessage);
+        }
+
+        // 定义响应结果
+        $result = [
+            'requestId'   => $response['RequestId'],
+            'successList' => $successList,
+            'failedList'  => $failedList,
+        ];
+
+        // 单条发送成功处理
+        if ($sendCount == 1 && $failedCount == 0) {
+            $result = array_merge($result, [
+                'bizId'   => current($response['SendStatusSet'])['SerialNo'],
+                'code'    => current($response['SendStatusSet'])['Code'],
+                'message' => current($response['SendStatusSet'])['Message'],
+            ]);
+        }
+
+        return new SendResultParam($result);
     }
 }

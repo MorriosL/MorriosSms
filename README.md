@@ -180,7 +180,12 @@ try {
 
 | 属性  | 类型  | 是否必传  | 说明  | 备注  |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
-| requestId  | array  | 是  | 请求ID  | 阿里云/腾讯云短信发送请求ID  |
+| requestId  | string  | 是  | 请求ID  | 阿里云/腾讯云短信发送请求ID  |
+| bizId  | string  | 是  | 发送回执ID  | 阿里云发送回执ID/腾讯云发送流水号  |
+| code  | string  | 是  | 请求状态码  | 阿里云/腾讯云短信发送请求状态码  |
+| message  | string  | 是  | 状态码的描述  | 阿里云/腾讯云短信发送请求状态码的描述  |
+| successList  | array  | 是  | 发送成功列表 - 腾讯云响应  | 腾讯云SendStatusSet  |
+| failedList  | array  | 是  | 发送失败列表 - 腾讯云响应  | 腾讯云SendStatusSet  |
 
 ## 贡献指南
 

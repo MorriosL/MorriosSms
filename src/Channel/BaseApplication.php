@@ -56,6 +56,7 @@ abstract class BaseApplication
      * Update config.
      *
      * @param ConfigParam $configParam
+     * @return void
      */
     public function updateConfig(ConfigParam $configParam)
     {

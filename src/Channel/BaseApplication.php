@@ -41,6 +41,18 @@ abstract class BaseApplication
     }
 
     /**
+     * Get config value by key.
+     *
+     * @param string $key
+     * @param null   $default
+     * @return mixed
+     */
+    public function getConfig(string $key, $default = null)
+    {
+        return $this->config->{$key} ?? $default;
+    }
+
+    /**
      * Update config.
      *
      * @param ConfigParam $configParam

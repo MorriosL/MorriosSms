@@ -11,10 +11,10 @@
   ],
   "require": {
     "php": ">=7.0",
+    "ext-json": "*",
     "alibabacloud/client": "^1.5",
     "qcloudsms/qcloudsms_php": "0.1.*",
-    "ext-json": "*",
-    "morrios/base": "^1.0.4"
+    "morrios/base": "^1.0"
   },
   "require-dev": {
   },
